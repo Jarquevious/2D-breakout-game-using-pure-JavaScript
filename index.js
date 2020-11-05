@@ -26,46 +26,55 @@ let brickOffsetLeft = 30;
 let score = 0;
 
 let bricks = [];
-for(let c=0; c<brickColumnCount; c++) {
+for (let c=0; c<brickColumnCount; c++) {
   bricks[c] = [];
-  for(let r=0; r<brickRowCount; r++) {
+  for (let r=0; r<brickRowCount; r++) {
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keydow", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function keyDownHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
+    if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
     }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
         leftPressed = true;
     }
 }
 
 function keyUpHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
+    if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = false;
     }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
         leftPressed = false;
     }
 }
+
+function mouseMoveHandler(e) {
+  let relativeX = e.clientX - canvas.offsetLeft;
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth / 2;
+  }
+}
+
 function collisionDetection() {
-  for(let c=0; c<brickColumnCount; c++) {
-    for(let r=0; r<brickRowCount; r++) {
+  for (let c = 0; c<brickColumnCount; c++) {
+    for (let r = 0; r<brickRowCount; r++) {
       let b = bricks[c][r];
-      if(b.status == 1) {
-        if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+      if (b.status == 1) {
+        if (x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
           dy = -dy;
           b.status = 0;
           score++;
-          if(score == brickRowCount*brickColumnCount) {
+          if (score == brickRowCount*brickColumnCount) {
             alert("YOU WIN, CONGRATS!");
             document.location.reload();
-            clearInterval(interval); // Needed for Chrome to end game
+            clearInterval(interval); // Needed for  Chrome to end game
           }
         }
       }
@@ -88,9 +97,9 @@ function drawPaddle() {
   ctx.closePath();
 }
 function drawBricks() {
-  for(let c=0; c<brickColumnCount; c++) {
-    for(let r=0; r<brickRowCount; r++) {
-      if(bricks[c][r].status == 1) {
+  for (let c=0; c<brickColumnCount; c++) {
+    for (let r=0; r<brickRowCount; r++) {
+      if (bricks[c][r].status == 1) {
         let brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
         let brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
         bricks[c][r].x = brickX;
@@ -118,27 +127,25 @@ function draw() {
   drawScore();
   collisionDetection();
 
-  if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+  if (x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
     dx = -dx;
   }
-  if(y + dy < ballRadius) {
+  if (y + dy < ballRadius) {
     dy = -dy;
-  }
-  else if(y + dy > canvas.height-ballRadius) {
-    if(x > paddleX && x < paddleX + paddleWidth) {
+  } else if (y + dy > canvas.height-ballRadius) {
+    if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
-    }
-    else {
-      alert("GAME OVER");
+    } else {
+      alert('GAME OVER');
       document.location.reload();
-      clearInterval(interval); // Needed for Chrome to end game
+      clearInterval(interval); // Needed for  Chrome to end game
     }
   }
 
-  if(rightPressed && paddleX < canvas.width-paddleWidth) {
+  if (rightPressed && paddleX < canvas.width - paddleWidth) {
     paddleX += 7;
   }
-  else if(leftPressed && paddleX > 0) {
+  else if (leftPressed && paddleX > 0) {
     paddleX -= 7;
   }
 
