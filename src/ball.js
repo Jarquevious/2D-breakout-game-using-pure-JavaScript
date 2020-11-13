@@ -1,9 +1,10 @@
+// ball1 = new Ball(11, 22, 30)
 class Ball {
   constructor(x, y, radius = 10) {
     this.x = x;
     this.y = y;
     this.dx = 2;
-    this.dx = -2;
+    this.dy = -2;
     this.radius = radius;
   }
 

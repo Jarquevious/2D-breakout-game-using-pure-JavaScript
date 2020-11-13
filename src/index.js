@@ -1,8 +1,13 @@
+/* eslint-disable import/extensions */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-import Brick from "./brick.js";
-import Ball from "./ball.js";
+/* Start code with npm run develop */
+/* build code for production with npm run build */
+
+// eslint-disable-next-line quotes
+import Brick from './brick.js';
+import Ball from './ball.js';
 
 // ====================================================
 //                        Variables
@@ -163,3 +168,16 @@ function draw() {
 }
 
 draw();
+// class Dog {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+//   bark() {
+//     console.log(this.name + 'ruff')
+//   }
+// }
+
+// John = new Dog('John', 4)
+// John.name
+// john.bark();
