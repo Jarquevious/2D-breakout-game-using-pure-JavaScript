@@ -9,7 +9,7 @@
 import Brick from './brick.js';
 import Ball from './ball.js';
 import Paddle from './paddle.js';
-// import Background from './background.js';
+import Background from './background.js';
 
 // ====================================================
 //                        Variables
@@ -36,6 +36,7 @@ let lives = 3;
 
 const ball = new Ball(canvas.width / 2, canvas.height - 30);
 const paddle = new Paddle(paddleX, paddleY, 'red', paddleWidth, paddleHeight);
+const background = new Background(canvas.width, canvas.height, 'purple');
 
 const bricks = [];
 for (let c = 0; c < brickColumnCount; c += 1) {
@@ -125,6 +126,7 @@ function drawLives() {
 function draw() {
   console.log(paddle);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  background.render(ctx);
   drawBricks();
   ball.render(ctx);
   paddle.render(ctx);
